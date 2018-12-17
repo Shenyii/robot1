@@ -1,0 +1,48 @@
+<!-- 
+
+This launch file shows how to start a hokuyo node. 
+
+You may have to change the port parameter if your laser is not at
+/dev/ttyACM0.
+
+If you have rviz built, you can uncomment the rviz node to visualize the
+laser data.
+
+Otherwise, you can use rostopic to see the data:
+rostopic echo /scan
+
+-->
+
+<launch>
+  <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+  
+    <!-- Starts up faster, but timestamps will be inaccurate. --> 
+    <param name="calibrate_time" type="bool" value="false"/> 
+    
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/agv_laser"/> 
+  
+    <param name="intensity" type="bool" value="false"/>
+    <param name="frame_id"  type="string" value="laser"/>
+
+    <!--<param name="min_ang_degrees" type="double" value="-135"/>--> 
+    <!--<param name="max_ang_degrees" type="double" value="135"/>--> 
+
+  </node>
+  
+<!--
+  <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure">
+  </node>
+
+  <node name="$(anon dynparam)" pkg="dynamic_reconfigure" type="dynparam" args="set_from_parameters hokuyo_node">
+    
+    <param name="min_ang_degrees" type="double" value="-2.30"/>
+    <param name="max_range" type="double" value="2.30"/>
+
+  </node>
+--> 
+  <!-- 
+  <node name="rviz" pkg="rviz" type="rviz" respawn="false" output="screen" args="-d $(find hokuyo_node)/hokuyo_test.vcg"/>
+  -->
+  
+</launch>
